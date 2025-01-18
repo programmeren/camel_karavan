@@ -1,0 +1,21 @@
+- rest:
+    id: rest-c9eb
+    post:
+      - id: post-37e5
+        path: /crm/test
+        to: direct:start
+- route:
+    id: route-5427
+    nodePrefixId: route-3ae
+    from:
+      id: start
+      uri: direct
+      parameters:
+        name: start
+        exchangePattern: InOut
+      steps:
+        - to:
+            id: to-6d78
+            uri: log
+            parameters:
+              loggerName: logger_crm
