@@ -1,0 +1,8 @@
+services:
+  vedascrm:
+    image: vedascrm
+    restart: always
+    ports:
+      - "8082:8080"
+    networks:
+      - karavan
