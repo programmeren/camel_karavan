@@ -1,0 +1,24 @@
+- rest:
+    id: rest-03e6
+    path: /Migros
+    consumes: application/json
+    produces: application/json
+    bindingMode: json
+    post:
+      - id: post-6ed6
+        path: /create
+        to: direct:createStart
+- route:
+    id: route-migros-create
+    nodePrefixId: route-migros-create
+    from:
+      id: createStart
+      uri: direct
+      parameters:
+        name: createStart
+      steps:
+        - unmarshal:
+            id: unmarshal-24e0
+            json:
+              id: json-604f
+              library: Jackson
