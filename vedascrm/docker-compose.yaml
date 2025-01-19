@@ -1,8 +1,9 @@
 services:
   vedascrm:
-    image: vedascrm
-    restart: always
-    ports:
-      - "8082:8080"
+    container_name: vedascrm
+    image: localhost:5555/karavan/vedascrm:latest
     networks:
-      - karavan
+    - karavan
+    ports:
+    - 8082:8080
+    restart: always
