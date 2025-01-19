@@ -18,7 +18,58 @@
         name: createStart
       steps:
         - unmarshal:
-            id: unmarshal-24e0
+            id: unmarshal-87ce
             json:
-              id: json-604f
+              id: json-0158
               library: Jackson
+        - split:
+            id: split-b4ff
+            expression:
+              simple:
+                id: simple-33cd
+                expression: ${body}
+            steps:
+              - to:
+                  id: to-4efd
+                  uri: kamelet:log-action
+                  parameters:
+                    level: INFO
+                    multiline: true
+        - removeHeaders:
+            id: removeHeaders-57f3
+            pattern: "*"
+        - setHeader:
+            id: setHeader-af58
+            name: auth
+            expression:
+              constant:
+                id: constant-4962
+                expression: "Authorization: Basic Yml6dGFsa3dzOkIxWlRAbGsyMCE4"
+        - to:
+            id: to-5b33
+            uri: https
+            parameters:
+              httpUri: >-
+                kocsistemdev.service-now.com/api/now/table/incident?sysparm_limit=5
+              httpMethod: GET
+        - unmarshal:
+            id: unmarshal-8bd7
+            json:
+              id: json-1ddf
+              library: Jackson
+        - to:
+            id: to-49c8
+            uri: kamelet:log-action
+            parameters:
+              level: INFO
+              loggerName: servicenow
+              multiline: true
+        - setBody:
+            id: setBody-8a6f
+            expression:
+              simple:
+                id: simple-efab
+                expression: |-
+                  {"response":"OK",
+                                    "soyad": "${jq(.username)}",
+                                    "ad": "${jq(.name)}"}
