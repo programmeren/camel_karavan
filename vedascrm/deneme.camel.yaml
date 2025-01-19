@@ -1,8 +1,9 @@
 - rest:
     id: rest-c9eb
+    path: /crm
     post:
       - id: post-37e5
-        path: /crm/test
+        path: /test
         to: direct:start
 - route:
     id: route-5427
