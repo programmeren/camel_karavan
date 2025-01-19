@@ -17,41 +17,27 @@
       parameters:
         name: createStart
       steps:
-        - unmarshal:
-            id: unmarshal-87ce
-            json:
-              id: json-0158
-              library: Jackson
-        - split:
-            id: split-b4ff
-            expression:
-              simple:
-                id: simple-33cd
-                expression: ${body}
-            steps:
-              - to:
-                  id: to-4efd
-                  uri: kamelet:log-action
-                  parameters:
-                    level: INFO
-                    multiline: true
         - removeHeaders:
             id: removeHeaders-57f3
             pattern: "*"
-        - setHeader:
-            id: setHeader-af58
-            name: auth
-            expression:
-              constant:
-                id: constant-4962
-                expression: "Authorization: Basic Yml6dGFsa3dzOkIxWlRAbGsyMCE4"
+        - setHeaders:
+            id: setHeaders-0f01
+            headers:
+              - id: setHeader-fb55
+                name: Authorization
+                expression:
+                  constant:
+                    id: constant-1cb8
+                    expression: Basic Yml6dGFsa3dzOkIxWlRAbGsyMCE4
         - to:
             id: to-5b33
             uri: https
+            pattern: InOut
             parameters:
               httpUri: >-
-                kocsistemdev.service-now.com/api/now/table/incident?sysparm_limit=5
+                https://kocsistemdev.service-now.com/api/now/table/incident?sysparm_limit=5
               httpMethod: GET
+              authenticationPreemptive: false
         - unmarshal:
             id: unmarshal-8bd7
             json:
