@@ -1,14 +1,3 @@
-- beans:
-    - name: myCustomer
-      type: com.mycompany.Customer
-      initMethod: summary
-      builderClass: com.mycompany.CustomerBuilder
-      builderMethod: CustomerBuilder
-      properties:
-        name: Eren
-        street: test sokak
-        zip: "34510"
-        gold: "false"
 - route:
     id: route-848b
     nodePrefixId: route-b99
@@ -29,3 +18,14 @@
             uri: kamelet:log-action
             parameters:
               level: INFO
+- beans:
+    - name: myCustomer
+      type: com.mycompany.Customer
+      initMethod: summary
+      builderClass: com.mycompany.CustomerBuilder
+      builderMethod: CustomerBuilder
+      properties:
+        name: Eren
+        street: test sokak
+        zip: "34510"
+        gold: "false"
