@@ -1,11 +1,3 @@
-- beans:
-    - name: PostgresDatabase
-      type: "#class:org.apache.commons.dbcp2.BasicDataSource"
-      properties:
-        username: postgres
-        password: postgres
-        url: jdbc:postgresql://localhost:5432/servicenow
-        driverClassName: org.postgresql.Driver
 - route:
     id: route-1294
     nodePrefixId: route-eef
@@ -26,3 +18,11 @@
             uri: kamelet:log-action
             parameters:
               level: INFO
+- beans:
+    - name: PostgresDatabase
+      type: "#class:org.apache.commons.dbcp2.BasicDataSource"
+      properties:
+        username: postgres
+        password: postgres
+        url: jdbc:postgresql://localhost:5432/servicenow
+        driverClassName: org.postgresql.Driver
