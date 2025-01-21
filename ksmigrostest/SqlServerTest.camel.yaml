@@ -12,8 +12,9 @@
             id: to-1168
             uri: sql
             parameters:
-              query: select count(sys_id) from servicenow.dbo.core_company
+              query: select count(*) from testTable
               dataSource: "#bean:SQLServerDb"
+              allowNamedParameters: true
         - to:
             id: to-513f
             uri: kamelet:log-action
@@ -25,6 +26,5 @@
       properties:
         username: sa
         password: Silverhome29
-        url: >-
-          jdbc:sqlserver://172.17.0.2:1433;encrypt=true;trustServerCertificate=true;databaseName=servicenow
+        url: jdbc:sqlserver://172.17.0.2:1433;databaseName=servicenow
         driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
