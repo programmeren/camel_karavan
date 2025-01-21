@@ -1,3 +1,14 @@
+- beans:
+    - name: myCustomer
+      type: com.mycompany.Customer
+      initMethod: summary
+      builderClass: com.mycompany.CustomerBuilder
+      builderMethod: CustomerBuilder
+      properties:
+        name: Eren
+        street: test sokak
+        zip: "34510"
+        gold: "false"
 - route:
     id: route-848b
     nodePrefixId: route-b99
@@ -8,7 +19,13 @@
         name: dbStart
       steps:
         - to:
-            id: to-7e94
-            uri: spring-jdbc
+            id: to-ce02
+            uri: bean
             parameters:
-              outputType: SelectOne
+              method: myCustomer
+              beanName: testBean
+        - to:
+            id: to-0532
+            uri: kamelet:log-action
+            parameters:
+              level: INFO
