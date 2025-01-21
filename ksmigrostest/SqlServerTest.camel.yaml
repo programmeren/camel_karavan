@@ -12,7 +12,7 @@
             id: to-1168
             uri: sql
             parameters:
-              query: select count(*) from testTable
+              query: SELECT TOP (1) [column_1]   FROM [servicenow].[dbo].[testTable]
               dataSource: "#bean:SQLServerDb"
               allowNamedParameters: true
         - to:
@@ -26,5 +26,5 @@
       properties:
         username: sa
         password: Silverhome29
-        url: jdbc:sqlserver://172.17.0.2:1433;databaseName=servicenow
+        url: jdbc:sqlserver://172.17.0.2:1433;databaseName=servicenow;
         driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
