@@ -1,0 +1,14 @@
+- route:
+    id: route-848b
+    nodePrefixId: route-b99
+    from:
+      id: from-8f99
+      uri: direct
+      parameters:
+        name: dbStart
+      steps:
+        - to:
+            id: to-7e94
+            uri: spring-jdbc
+            parameters:
+              outputType: SelectOne
