@@ -1,31 +1,33 @@
 - route:
-    id: route-848b
-    nodePrefixId: route-b99
+    id: route-5a17
     from:
-      id: from-8f99
-      uri: direct
+      id: from-ac4a
+      uri: timer
       parameters:
-        name: dbStart
+        period: "5000"
+        timerName: yaml
       steps:
-        - to:
-            id: to-ce02
-            uri: bean
-            parameters:
-              method: myCustomer
-              beanName: testBean
-        - to:
-            id: to-0532
-            uri: kamelet:log-action
-            parameters:
-              level: INFO
+        - setVariable:
+            id: varIsim
+            name: global:varIsim
+            expression:
+              constant:
+                id: constant-18e7
+                expression: "\"mehmet\""
+        - bean:
+            id: bean-5617
+            ref: myCustomer
+            method: summary($varIsim)
+        - log:
+            id: log-fdcd
+            message: ${body}
+            loggingLevel: INFO
 - beans:
     - name: myCustomer
       type: com.mycompany.Customer
-      initMethod: summary
       builderClass: com.mycompany.CustomerBuilder
-      builderMethod: CustomerBuilder
       properties:
         name: Eren
-        street: test sokak
+        street: Kelepir Sk 2Z
         zip: "34510"
-        gold: "false"
+        gold: "true"

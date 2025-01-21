@@ -31,7 +31,7 @@ public final class Customer {
 		return gold;
 	}
 
-	public String summary() {
-		return name + " at " + street + " (" + zip + ") is " + (gold ? "gold" : "silver") + " customer";
+	public String summary(String test) {
+		return test + " at " + street + " (" + zip + ") is " + (gold ? "gold" : "silver") + " customer";
 	}
 }
