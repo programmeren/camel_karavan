@@ -7,29 +7,11 @@
         period: "5000"
         timerName: yaml
       steps:
-        - setVariable:
-            id: varIsim
-            name: global:varIsim
-            expression:
-              constant:
-                id: constant-18e7
-                expression: "\"mehmet\""
-        - bean:
-            id: bean-5617
-            ref: myCustomer
-            method: summary(varIsim)
+        - to:
+            id: to-efb5
+            uri: sql
+            parameters:
+              query: SELECT count(*) FROM core_company?dataSource=#dataSource
         - log:
-            id: log-fdcd
-            message: ${body}
-            loggingLevel: INFO
-- beans:
-    - name: myCustomer
-      type: com.mycompany.Customer
-      builderClass: com.mycompany.CustomerBuilder
-      constructors:
-        "0": isimGonder
-      properties:
-        name: Eren
-        street: Kelepir Sk 2Z
-        zip: "34510"
-        gold: "true"
+            id: log-50a6
+            message: "Query Result: ${body}"
