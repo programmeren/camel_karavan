@@ -17,7 +17,7 @@
         - bean:
             id: bean-5617
             ref: myCustomer
-            method: summary($varIsim)
+            method: summary(varIsim)
         - log:
             id: log-fdcd
             message: ${body}
@@ -26,6 +26,8 @@
     - name: myCustomer
       type: com.mycompany.Customer
       builderClass: com.mycompany.CustomerBuilder
+      constructors:
+        "0": isimGonder
       properties:
         name: Eren
         street: Kelepir Sk 2Z
