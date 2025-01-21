@@ -1,0 +1,28 @@
+- beans:
+    - name: PostgresDatabase
+      type: "#class:org.apache.commons.dbcp2.BasicDataSource"
+      properties:
+        username: postgres
+        password: postgres
+        url: jdbc:postgresql://localhost:5432/servicenow
+        driverClassName: org.postgresql.Driver
+- route:
+    id: route-1294
+    nodePrefixId: route-eef
+    from:
+      id: from-2def
+      uri: timer
+      parameters:
+        timerName: timers
+      steps:
+        - to:
+            id: to-f24d
+            uri: sql
+            parameters:
+              dataSource: "#bean:PostgresDatabase"
+              query: select * from t_scheduled_config
+        - to:
+            id: to-fb85
+            uri: kamelet:log-action
+            parameters:
+              level: INFO
