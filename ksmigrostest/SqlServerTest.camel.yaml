@@ -1,12 +1,3 @@
-- beans:
-    - name: SQLServerDb
-      type: "#class:org.apache.commons.dbcp2.BasicDataSource"
-      properties:
-        username: sa
-        password: Silverhome29
-        url: >-
-          jdbc:sqlserver://localhost:1433;encrypt=true;trustServerCertificate=true;databaseName=servicenow
-        driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
 - route:
     id: route-f2d2
     nodePrefixId: route-2c4
@@ -21,10 +12,19 @@
             id: to-1168
             uri: sql
             parameters:
-              query: select count(sys_id) from core_company
+              query: select count(sys_id) from servicenow.dbo.core_company
               dataSource: "#bean:SQLServerDb"
         - to:
             id: to-513f
             uri: kamelet:log-action
             parameters:
               level: INFO
+- beans:
+    - name: SQLServerDb
+      type: "#class:org.apache.commons.dbcp2.BasicDataSource"
+      properties:
+        username: sa
+        password: Silverhome29
+        url: >-
+          jdbc:sqlserver://172.17.0.2:1433;encrypt=true;trustServerCertificate=true;databaseName=servicenow
+        driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
