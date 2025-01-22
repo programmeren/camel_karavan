@@ -12,7 +12,7 @@
             id: to-1168
             uri: sql
             parameters:
-              query: SELECT TOP (1) [column_1]   FROM [servicenow].[dbo].[testTable]
+              query: SELECT * FROM [servicenow].[dbo].[testTable]
               dataSource: "#bean:SQLServerDb"
               allowNamedParameters: true
         - to:
