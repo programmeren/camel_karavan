@@ -8,6 +8,13 @@
         delay: "5000"
         timerName: timerSql
       steps:
+        - setHeader:
+            id: setHeader-4086
+            name: CamelSqlQuery
+            expression:
+              constant:
+                id: constant-e377
+                expression: select * from testTable where column_1=1
         - to:
             id: to-1168
             uri: sql
@@ -20,6 +27,17 @@
             uri: kamelet:log-action
             parameters:
               level: INFO
+              showBody: true
+        - process:
+            id: process-de3e
+            ref: arrayListToStringProcessor
+        - to:
+            id: to-653e
+            uri: file
+            parameters:
+              directoryName: /tmp
+              fileName: eren.txt
+              flatten: true
 - beans:
     - name: SQLServerDb
       type: "#class:org.apache.commons.dbcp2.BasicDataSource"
