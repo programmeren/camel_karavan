@@ -27,6 +27,5 @@
         username: sa
         password: Silverhome29
         url: >-
-          jdbc:sqlserver://172.17.0.2:1433;databaseName=servicenow;Integrated
-          Security=False;
+          jdbc:sqlserver://192.168.1.214:1433;databaseName=servicenow;encrypt=true;trustServerCertificate=true;
         driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
