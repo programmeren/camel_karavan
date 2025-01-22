@@ -5,6 +5,7 @@ import org.apache.camel.Processor;
 
 import java.util.ArrayList;
 import java.util.stream.Collectors;
+import java.util.Map;
 
 @Configuration
 @BindToRegistry("arrayListToStringProcessor")
