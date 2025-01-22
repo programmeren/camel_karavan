@@ -30,7 +30,7 @@
               showBody: true
         - process:
             id: process-de3e
-            ref: arrayListToStringProcessor
+            ref: dbArrayResultToFileContent
         - to:
             id: to-653e
             uri: file
