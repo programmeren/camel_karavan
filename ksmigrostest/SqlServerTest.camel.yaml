@@ -1,3 +1,12 @@
+- beans:
+    - name: SQLServerDb
+      type: "#class:org.apache.commons.dbcp2.BasicDataSource"
+      properties:
+        username: sa
+        password: Silverhome29
+        url: >-
+          jdbc:sqlserver://192.168.1.214:1433;databaseName=servicenow;encrypt=true;trustServerCertificate=true;
+        driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
 - route:
     id: route-f2d2
     nodePrefixId: route-2c4
@@ -38,12 +47,18 @@
               directoryName: /tmp
               fileName: eren.txt
               flatten: true
-- beans:
-    - name: SQLServerDb
-      type: "#class:org.apache.commons.dbcp2.BasicDataSource"
-      properties:
-        username: sa
-        password: Silverhome29
-        url: >-
-          jdbc:sqlserver://192.168.1.214:1433;databaseName=servicenow;encrypt=true;trustServerCertificate=true;
-        driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+        - removeHeaders:
+            id: removeHeaders-9e07
+            pattern: "*"
+        - to:
+            id: to-b19d
+            uri: ftp
+            parameters:
+              host: >-
+                f29eb92e72b54e52a046e8449b361518:YySZP1EZ1hT79d1U89JyzoRp4f5rxxKO@eu-central-1.sftpcloud.io
+              port: "21"
+              fileName: eren.txt
+              binary: false
+              fileExist: Override
+              flatten: false
+              passiveMode: true
