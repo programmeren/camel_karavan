@@ -8,6 +8,14 @@ import org.apache.camel.Processor;
 public class arrayListToStringProcessor implements Processor {
 
     public void process(Exchange exchange) throws Exception {
-        exchange.getIn().setBody("Hello World Eren");
+        
+       ArrayList<String> list = exchange.getIn().getBody(ArrayList.class);
+
+        // Convert the ArrayList to a comma-separated String
+        String result = list.stream().collect(Collectors.joining(", "));
+
+        // Set the result back to the exchange body
+        exchange.getMessage().setBody(result);
+        
     }
 }
