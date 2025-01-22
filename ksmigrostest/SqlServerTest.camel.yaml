@@ -14,7 +14,7 @@
             expression:
               constant:
                 id: constant-e377
-                expression: select * from testTable where column_1=1
+                expression: select * from testTable
         - to:
             id: to-1168
             uri: sql
