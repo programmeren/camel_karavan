@@ -3,6 +3,9 @@ import org.apache.camel.Configuration;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 
+import java.util.ArrayList;
+import java.util.stream.Collectors;
+
 @Configuration
 @BindToRegistry("arrayListToStringProcessor")
 public class arrayListToStringProcessor implements Processor {
