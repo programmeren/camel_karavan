@@ -9,9 +9,9 @@ import java.util.Map;
 
 @Configuration
 @BindToRegistry("arrayListToStringProcessor")
-public class arrayListToStringProcessor implements Processor {
+public class arrayListToStringProcessor {
 
-    public void process(Exchange exchange) throws Exception {
+    public String arrayListToStringProcessorList(Exchange exchange) {
         
        ArrayList<Map<String, Object>> list = exchange.getIn().getBody(ArrayList.class);
 
