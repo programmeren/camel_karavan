@@ -1,12 +1,3 @@
-- beans:
-    - name: SQLServerDb
-      type: "#class:org.apache.commons.dbcp2.BasicDataSource"
-      properties:
-        username: sa
-        password: Silverhome29
-        url: >-
-          jdbc:sqlserver://192.168.1.214:1433;databaseName=servicenow;encrypt=true;trustServerCertificate=true;
-        driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
 - route:
     id: route-f2d2
     nodePrefixId: route-2c4
@@ -62,3 +53,12 @@
               fileExist: Override
               flatten: false
               passiveMode: true
+- beans:
+    - name: SQLServerDb
+      type: "#class:org.apache.commons.dbcp2.BasicDataSource"
+      properties:
+        username: sa
+        password: Silverhome29
+        url: >-
+          jdbc:sqlserver://192.168.1.214:1433;databaseName=servicenow;encrypt=true;trustServerCertificate=true;
+        driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
