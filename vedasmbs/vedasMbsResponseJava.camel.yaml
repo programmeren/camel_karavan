@@ -19,6 +19,9 @@
             json:
               id: json-cd14
               library: Jackson
+        - removeHeaders:
+            id: removeHeaders-0e14
+            pattern: "*"
         - to:
             id: to-94bc
             uri: https
