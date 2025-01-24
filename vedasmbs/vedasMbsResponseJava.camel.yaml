@@ -47,3 +47,8 @@
                   constant:
                     id: constant-2d94
                     expression: test
+        - to:
+            id: to-d71f
+            uri: kamelet:log-action
+            parameters:
+              level: INFO
