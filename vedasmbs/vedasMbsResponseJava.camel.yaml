@@ -22,3 +22,10 @@
         - to:
             id: to-94bc
             uri: https
+            pattern: InOut
+            parameters:
+              httpUri: https://dummyjson.com/users/1
+              httpMethod: GET
+        - process:
+            id: process-c07e
+            ref: usersResponse
