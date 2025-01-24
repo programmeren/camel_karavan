@@ -23,23 +23,102 @@
         - to:
             id: to-646b
             uri: kamelet:log-action
+            parameters:
+              level: INFO
         - doTry:
             id: doTry-28f6
             doCatch:
-              - id: doCatch-8b5c
+              - id: doCatch-45e6
+                exception:
+                  - org.apache.camel.http.base.HttpOperationFailedException
                 steps:
-                  - setBody:
-                      id: setBody-8e8d
-                      expression:
-                        constant:
-                          id: constant-2a4c
-                          expression: "{\"kayit bulunamadi\"}"
-                  - to:
-                      id: to-4d28
-                      uri: kamelet:log-action
+                  - choice:
+                      id: choice-7a23
+                      when:
+                        - id: when-3f05
+                          expression:
+                            simple:
+                              id: simple-e456
+                              expression: ${exception.statusCode} == 404
+                          steps:
+                            - setBody:
+                                id: setBody-d0d2
+                                expression:
+                                  constant:
+                                    id: constant-bb2c
+                                    expression: |-
+                                      {"result":"failure",
+                                      "code":404,
+                                      "message":"kayit bulunamadi"
+                                      }
+                            - to:
+                                id: to-a2a7
+                                uri: kamelet:log-action
+                                parameters:
+                                  level: INFO
+                        - id: when-2535
+                          expression:
+                            simple:
+                              id: simple-767f
+                              expression: ${exception.statusCode} == 500
+                          steps:
+                            - setBody:
+                                id: setBody-b2bc
+                                expression:
+                                  constant:
+                                    id: constant-a1e3
+                                    expression: |-
+                                      {"result":"failure",
+                                      "code":500,
+                                      "message":"hatali islem"
+                                      }
+                            - to:
+                                id: to-bc08
+                                uri: kamelet:log-action
+                                parameters:
+                                  level: INFO
+                      otherwise:
+                        id: otherwise-5b74
+                        steps:
+                          - setBody:
+                              id: setBody-4e0c
+                              expression:
+                                simple:
+                                  id: simple-d28e
+                                  expression: |-
+                                    {"result":"failure",
+                                    "code":400,
+                                    "message":"genel hata"
+                                    }
+                          - to:
+                              id: to-05ef
+                              uri: kamelet:log-action
+                              parameters:
+                                level: INFO
+            doFinally:
+              id: doFinally-d20a
+              steps:
+                - setHeader:
+                    id: setHeader-d0d5
+                    name: Content-Type
+                    expression:
+                      constant:
+                        id: constant-b89e
+                        expression: application/json
+                - setBody:
+                    id: setBody-ad58
+                    expression:
+                      simple:
+                        id: simple-1e24
+                        expression: ${body}
+                - to:
+                    id: to-dacf
+                    uri: kamelet:log-action
+                    parameters:
+                      level: INFO
             steps:
               - removeHeaders:
-                  id: removeHeaders-4f2a
+                  id: removeHeaders-0f3f
                   pattern: "*"
               - setHeader:
                   id: setHeader-4a0e
@@ -54,9 +133,3 @@
                   parameters:
                     httpUri: https://dummyjson.com/products/
                     httpMethod: GET
-              - to:
-                  id: to-ec17
-                  uri: kamelet:log-action
-                  parameters:
-                    loggerName: users
-                    level: INFO
