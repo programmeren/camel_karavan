@@ -48,25 +48,8 @@ public class usersResponse implements Processor {
 
             String jsonBody = exchange.getIn().getBody(String.class);
             
-            //ObjectNode jsonObject = objectMapper.createObjectNode();
-            //jsonObject.put("id", 1);
-            //jsonObject.put("firstName", "John Doe");
-            //jsonObject.put("lastName", "john.doe@example.com");
-
-            // Convert the ObjectNode to a JSON string
-            //String jsonString = objectMapper.writeValueAsString(jsonObject);
-
-            //System.out.println(jsonString);
-            
-            
-            //User user = new User(3,"eren","meric");
-            
-            System.out.println("Converted User Object: " + jsonBody);
-
             User user = objectMapper.readValue(jsonBody, User.class);
             
-            
-
             String json = objectMapper.writeValueAsString(user);
      
             exchange.getMessage().setBody(json);
