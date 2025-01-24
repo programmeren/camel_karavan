@@ -23,38 +23,40 @@
         - to:
             id: to-646b
             uri: kamelet:log-action
-        - removeHeaders:
-            id: removeHeaders-4f2a
-            pattern: "*"
-        - setHeader:
-            id: setHeader-4a0e
-            name: CamelHttpPath
-            expression:
-              simple:
-                id: simple-8b88
-                expression: ${body.[id]}
-        - to:
-            id: to-0c90
-            uri: https
-            parameters:
-              httpUri: https://dummyjson.com/products/
-              httpMethod: GET
-        - to:
-            id: to-ec17
-            uri: kamelet:log-action
-            parameters:
-              loggerName: users
-              level: INFO
-        - setBody:
-            id: setBody-c06f
-            expression:
-              jq:
-                id: jq-ea6d
-                expression: >-
-                  .reviews | map({skor: .rating, aciklama: .comment, kisi:
-                  .reviewerName}) 
-        - to:
-            id: to-6f68
-            uri: kamelet:log-action
-            parameters:
-              level: INFO
+        - doTry:
+            id: doTry-28f6
+            doCatch:
+              - id: doCatch-8b5c
+                steps:
+                  - setBody:
+                      id: setBody-8e8d
+                      expression:
+                        constant:
+                          id: constant-2a4c
+                          expression: "{\"kayit bulunamadi\"}"
+                  - to:
+                      id: to-4d28
+                      uri: kamelet:log-action
+            steps:
+              - removeHeaders:
+                  id: removeHeaders-4f2a
+                  pattern: "*"
+              - setHeader:
+                  id: setHeader-4a0e
+                  name: CamelHttpPath
+                  expression:
+                    simple:
+                      id: simple-8b88
+                      expression: ${body.[id]}
+              - to:
+                  id: to-0c90
+                  uri: https
+                  parameters:
+                    httpUri: https://dummyjson.com/products/
+                    httpMethod: GET
+              - to:
+                  id: to-ec17
+                  uri: kamelet:log-action
+                  parameters:
+                    loggerName: users
+                    level: INFO
