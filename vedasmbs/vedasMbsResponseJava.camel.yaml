@@ -1,0 +1,24 @@
+- rest:
+    id: rest-bef6
+    path: /mbs
+    post:
+      - id: post-82e7
+        path: /create/customer
+        to: direct:start
+- route:
+    id: route-27e3
+    nodePrefixId: route-13d
+    from:
+      id: from-2165
+      uri: direct
+      parameters:
+        name: start
+      steps:
+        - unmarshal:
+            id: unmarshal-8f85
+            json:
+              id: json-cd14
+              library: Jackson
+        - to:
+            id: to-94bc
+            uri: https
