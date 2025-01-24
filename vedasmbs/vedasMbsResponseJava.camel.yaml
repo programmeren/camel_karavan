@@ -32,3 +32,10 @@
         - process:
             id: process-c07e
             ref: usersResponse
+        - setHeader:
+            id: setHeader-d8f0
+            name: Content-Type
+            expression:
+              constant:
+                id: constant-896a
+                expression: application/json
