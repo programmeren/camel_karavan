@@ -18,15 +18,16 @@ public class usersResponse implements Processor {
     private int id;
     private String firstName;
     private String lastName;
-
+    private String eyeColor;
     // Default constructor
     public User() {}
 
     // Constructor
-    public User(int id, String firstName, String lastName) {
+    public User(int id, String firstName, String lastName, String eyeColor) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.eyeColor = eyeColor;
     }
 
     // Getters and Setters
@@ -39,6 +40,8 @@ public class usersResponse implements Processor {
     public String getlastName() { return lastName; }
     public void setlastName(String lastName) { this.lastName = lastName; }
 
+    public String geteyeColor() { return eyeColor; }
+    public void seteyeColor(String eyeColor) { this.eyeColor = eyeColor; }
     
 }
     
