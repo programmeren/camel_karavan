@@ -21,8 +21,6 @@
             parameters:
               loggerName: firstBody
               level: INFO
-        - process:
-            id: process-db60
         - setProperty:
             id: setProperty-692d
             description: setServiceType
