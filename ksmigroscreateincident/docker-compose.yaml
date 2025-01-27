@@ -1,0 +1,8 @@
+services:
+  ksmigroscreateincident:
+    image: ksmigroscreateincident
+    restart: always
+    ports:
+      - "8085:8080"
+    networks:
+      - karavan

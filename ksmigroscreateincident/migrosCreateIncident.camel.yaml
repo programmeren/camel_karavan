@@ -1,0 +1,29 @@
+- rest:
+    id: rest-66ac
+    path: /migros
+    post:
+      - id: post-49e8
+        path: /createIncident
+        to: direct:createStart
+- route:
+    id: migrosCreateIncident
+    nodePrefixId: route-116
+    from:
+      id: from-75b3
+      uri: direct
+      parameters:
+        name: createStart
+        exchangePattern: InOut
+      steps:
+        - unmarshal:
+            id: unmarshal-a745
+            json:
+              id: json-c467
+              library: Jackson
+        - to:
+            id: to-1f6e
+            uri: kamelet:log-action
+            parameters:
+              level: INFO
+              loggerName: bodyLog
+              showBody: true
