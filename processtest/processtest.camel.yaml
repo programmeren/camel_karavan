@@ -1,3 +1,10 @@
+- rest:
+    id: rest-971c
+    path: test
+    post:
+      - id: post-cd95
+        path: /testmethod
+        to: direct:start
 - route:
     id: route-c02a
     nodePrefixId: route-aab
@@ -10,8 +17,25 @@
         - process:
             id: process-ec2d
             ref: copyMessage
+        - setBody:
+            id: setBody-566c
+            expression:
+              constant:
+                id: constant-f8cd
+                expression: "{\"id\":1}"
         - to:
             id: to-6160
             uri: kamelet:log-action
             parameters:
               level: INFO
+        - setBody:
+            id: setBody-9d1a
+            expression:
+              constant:
+                id: constant-5b20
+                expression: copyMessage()
+        - to:
+            id: to-1482
+            uri: kamelet:log-action
+- beans:
+    - {}
