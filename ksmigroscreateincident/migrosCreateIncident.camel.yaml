@@ -15,15 +15,83 @@
         name: createStart
         exchangePattern: InOut
       steps:
-        - unmarshal:
-            id: unmarshal-a745
-            json:
-              id: json-c467
-              library: Jackson
+        - setProperty:
+            id: setProperty-692d
+            description: setServiceType
+            name: setServiceType
+            expression:
+              jq:
+                id: jq-39c2
+                expression: .Service
+        - log:
+            id: log-3e9d
+            description: serviceTypeLog
+            message: ${exchangeProperty.setServiceType}
+            loggingLevel: INFO
+            logName: serviceTypeLog
+        - removeHeaders:
+            id: removeHeaders-ec03
+            pattern: "*"
+        - setHeaders:
+            id: setHeaders-4a54
+            description: setHttpsHeaderQuery_Auth
+            headers:
+              - id: setHeader-bcde
+                name: CamelHttpQuery
+                expression:
+                  simple:
+                    id: simple-4be0
+                    expression: >-
+                      sysparm_query=u_reason=${exchangeProperty.setServiceType}&sysparm_fields=u_platform
+              - id: setHeader-ac5e
+                name: Authorization
+                expression:
+                  constant:
+                    id: constant-c5ba
+                    expression: Basic Yml6dGFsa3dzOkIxWlRAbGsyMCE4
         - to:
-            id: to-1f6e
+            id: to-e0b7
+            description: getPlatformHttpsRequest
+            uri: https
+            parameters:
+              httpUri: >-
+                https://kocsistem.service-now.com/api/now/table/u_int_customer_category
+              httpMethod: GET
+              bridgeEndpoint: true
+        - setProperty:
+            id: setProperty-82a7
+            description: setPlatform
+            name: setPlatform
+            expression:
+              jq:
+                id: jq-4ca3
+                expression: .result[].u_platform
+        - log:
+            id: log-4717
+            description: setPlatrofmLog
+            message: ${exchangeProperty.setPlatform}
+            loggingLevel: INFO
+            logName: setPlatrofmLog
+        - choice:
+            id: choice-d64b
+            when:
+              - id: when-f97b
+                expression:
+                  simple:
+                    id: simple-f6f1
+                    expression: ${exchangeProperty.setPlatform} == 'CLOUD'
+                steps:
+                  - log:
+                      id: log-049e
+                      message: "\"cloud a aç\""
+            otherwise:
+              id: otherwise-f3a5
+              steps:
+                - log:
+                    id: log-e4ef
+                    message: "\"onprem e aç\""
+        - to:
+            id: to-309d
             uri: kamelet:log-action
             parameters:
               level: INFO
-              loggerName: bodyLog
-              showBody: true
