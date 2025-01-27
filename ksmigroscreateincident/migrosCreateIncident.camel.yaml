@@ -15,6 +15,9 @@
         name: createStart
         exchangePattern: InOut
       steps:
+        - to:
+            id: to-f1c9
+            uri: kamelet:log-action
         - setProperty:
             id: setProperty-692d
             description: setServiceType
