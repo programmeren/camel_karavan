@@ -1,8 +1,0 @@
-services:
-  processtest:
-    image: processtest
-    restart: always
-    ports:
-      - "8086:8080"
-    networks:
-      - karavan
