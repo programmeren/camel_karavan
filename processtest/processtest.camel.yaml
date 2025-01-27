@@ -32,10 +32,8 @@
             id: setBody-9d1a
             expression:
               constant:
-                id: constant-5b20
+                id: constant-7e16
                 expression: copyMessage()
         - to:
             id: to-1482
             uri: kamelet:log-action
-- beans:
-    - {}

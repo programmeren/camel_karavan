@@ -6,9 +6,16 @@ import org.apache.camel.Processor;
 @Configuration
 @BindToRegistry("copyMessage")
 public class copyMessage implements Processor {
+    public Exchange copiedExchange;
     public void process(Exchange exchange) throws Exception {
-        Exchange copiedExchange = exchange.copy();
+        copiedExchange = exchange.copy();
         exchange = copiedExchange;
         
     }
+    public Exchange getMessage(){
+
+        return copiedExchange;
+
+    }
+
 }
