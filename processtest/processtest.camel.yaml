@@ -1,0 +1,17 @@
+- route:
+    id: route-c02a
+    nodePrefixId: route-aab
+    from:
+      id: from-6a21
+      uri: direct
+      parameters:
+        name: start
+      steps:
+        - process:
+            id: process-ec2d
+            ref: copyMessage
+        - to:
+            id: to-6160
+            uri: kamelet:log-action
+            parameters:
+              level: INFO
