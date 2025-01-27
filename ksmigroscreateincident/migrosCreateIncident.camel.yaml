@@ -16,8 +16,13 @@
         exchangePattern: InOut
       steps:
         - to:
-            id: to-f1c9
+            id: to-f6df
             uri: kamelet:log-action
+            parameters:
+              loggerName: firstBody
+              level: INFO
+        - process:
+            id: process-db60
         - setProperty:
             id: setProperty-692d
             description: setServiceType
@@ -93,8 +98,15 @@
                 - log:
                     id: log-e4ef
                     message: "\"onprem e aç\""
+        - setBody:
+            id: setBody-11f4
+            expression:
+              simple:
+                id: simple-f6b9
+                expression: ${body}
         - to:
             id: to-309d
             uri: kamelet:log-action
             parameters:
               level: INFO
+              loggerName: BodyLog
