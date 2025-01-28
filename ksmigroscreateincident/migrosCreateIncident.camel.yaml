@@ -16,6 +16,11 @@
         exchangePattern: InOut
       steps:
         - to:
+            id: to-3054
+            uri: kafka
+            parameters:
+              topic: my-topic
+        - to:
             id: to-f6df
             uri: kamelet:log-action
             parameters:
