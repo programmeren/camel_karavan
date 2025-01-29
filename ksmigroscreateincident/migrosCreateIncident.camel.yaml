@@ -15,14 +15,38 @@
         name: createStart
         exchangePattern: InOut
       steps:
+        - setProperty:
+            id: setProperty-0fa1
+            name: firstBodyJson
+            expression:
+              simple:
+                id: simple-a9bd
+                expression: ${body}
+        - setProperty:
+            id: setProperty-d2b6
+            name: customerRef
+            expression:
+              jq:
+                id: jq-8bb4
+                expression: .CustomerReference
+        - log:
+            id: log-c518
+            message: ${exchangeProperty.customerRef}
+            loggingLevel: INFO
+        - setHeader:
+            id: setHeader-b051
+            name: kafka.KEY
+            expression:
+              simple:
+                id: simple-fb9d
+                expression: ${exchangeProperty.customerRef}
         - to:
             id: to-3054
             uri: kafka
             pattern: InOut
             parameters:
-              topic: my-topic
+              topic: test
               brokers: 192.168.1.213:9092
-              key: migrosCreate
               clientId: producer-1
               groupId: my-group
         - to:
@@ -97,6 +121,29 @@
                     id: simple-f6f1
                     expression: ${exchangeProperty.setPlatform} == 'CLOUD'
                 steps:
+                  - setBody:
+                      id: setBody-11f4
+                      expression:
+                        simple:
+                          id: simple-f6b9
+                          expression: ${exchangeProperty.firstBodyJson}
+                  - removeHeaders:
+                      id: removeHeaders-4673
+                      pattern: "*"
+                  - setHeader:
+                      id: setHeader-9a8c
+                      name: Authorization
+                      expression:
+                        constant:
+                          id: constant-e681
+                          expression: Basic Yml6dGFsa3dzOkIxWlRAbGsyMCE4
+                  - to:
+                      id: to-b3da
+                      uri: https
+                      parameters:
+                        httpUri: >-
+                          https://kocsistemdev.service-now.com/api/dxck/ks_migros_integration/migros/create/incident  
+                        httpMethod: POST
                   - log:
                       id: log-049e
                       message: "\"cloud a aç\""
@@ -108,15 +155,6 @@
                     id: log-e4ef
                     message: "\"onprem e aç\""
                     loggingLevel: INFO
-        - to:
-            id: to-4b1d
-            uri: kafka
-        - setBody:
-            id: setBody-11f4
-            expression:
-              simple:
-                id: simple-f6b9
-                expression: ${body}
         - to:
             id: to-309d
             uri: kamelet:log-action
