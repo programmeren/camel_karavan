@@ -109,13 +109,8 @@
                     message: "\"onprem e aç\""
                     loggingLevel: INFO
         - to:
-            id: to-477e
-            uri: rest
-            pattern: InOut
-            parameters:
-              method: get
-              path: /consume
-              host: 192.168.1.213:9092
+            id: to-4b1d
+            uri: kafka
         - setBody:
             id: setBody-11f4
             expression:
