@@ -20,6 +20,9 @@
             uri: kafka
             parameters:
               topic: my-topic
+              brokers: 192.168.1.213:9092
+              key: migrosCreate
+              clientId: producer-1
         - to:
             id: to-f6df
             uri: kamelet:log-action
@@ -101,6 +104,13 @@
                 - log:
                     id: log-e4ef
                     message: "\"onprem e aç\""
+        - to:
+            id: to-3055
+            uri: kafka
+            parameters:
+              topic: my-topic
+              brokers: 192.168.1.213:9092
+              key: migrosCreate
         - setBody:
             id: setBody-11f4
             expression:
