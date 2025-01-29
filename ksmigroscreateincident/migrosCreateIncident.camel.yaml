@@ -18,11 +18,13 @@
         - to:
             id: to-3054
             uri: kafka
+            pattern: InOut
             parameters:
               topic: my-topic
               brokers: 192.168.1.213:9092
               key: migrosCreate
               clientId: producer-1
+              groupId: my-group
         - to:
             id: to-f6df
             uri: kamelet:log-action
@@ -98,19 +100,22 @@
                   - log:
                       id: log-049e
                       message: "\"cloud a aç\""
+                      loggingLevel: INFO
             otherwise:
               id: otherwise-f3a5
               steps:
                 - log:
                     id: log-e4ef
                     message: "\"onprem e aç\""
+                    loggingLevel: INFO
         - to:
-            id: to-3055
-            uri: kafka
+            id: to-477e
+            uri: rest
+            pattern: InOut
             parameters:
-              topic: my-topic
-              brokers: 192.168.1.213:9092
-              key: migrosCreate
+              method: get
+              path: /consume
+              host: 192.168.1.213:9092
         - setBody:
             id: setBody-11f4
             expression:
