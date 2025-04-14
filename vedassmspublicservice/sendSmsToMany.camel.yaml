@@ -26,28 +26,42 @@
             expression:
               constant:
                 id: constant-98e6
-                expression: |-
-                  &lt;SMSToMany xmlns=&quot;http://tempuri.org/&quot;&gt;
-                    &lt;username&gt;vedasebs&lt;/username&gt;
-                    &lt;company_code&gt;mb1870&lt;/company_code&gt;
-                    &lt;password&gt;7y1Z53k56a&lt;/password&gt;
-                    &lt;originator&gt;VEDAS&lt;/originator&gt;
-                    &lt;sendDate /&gt;
-                    &lt;message&gt;test.&lt;/message&gt;
-                    &lt;numbers&gt;05327907111&lt;/numbers&gt;
-                    &lt;messageType&gt;N&lt;/messageType&gt;
-                    &lt;recipientType&gt;B&lt;/recipientType&gt;
-                  &lt;/SMSToMany&gt;
+                expression: >-
+                  <soap:Envelope
+                  xmlns:soap="http://www.w3.org/2003/05/soap-envelope"
+                  xmlns:tem="http://tempuri.org/">
+                     <soap:Header/>
+                     <soap:Body>
+                  <SMSToMany xmlns="http://tempuri.org/">
+                    <username>vedasebs</username>
+                    <company_code>mb1870</company_code>
+                    <password>7y1Z53k56a</password>
+                    <originator>VEDAS</originator>
+                    <sendDate />
+                    <message>Genel Aydinlatmalar.</message>
+                    <numbers>05327907111</numbers>
+                    <messageType>N</messageType>
+                    <recipientType>B</recipientType>
+                  </SMSToMany>
+                     </soap:Body>
+                  </soap:Envelope>
         - removeHeaders:
             id: removeHeaders-b013
             pattern: "*"
-        - setHeader:
-            id: setHeader-0037
-            name: CamelHttpMethod
-            expression:
-              constant:
-                id: constant-222d
-                expression: SmsToMany
+        - log:
+            id: log-5928
+            message: ${body}
+            logName: log1
+        - setHeaders:
+            id: setHeaders-be7f
+            headers:
+              - id: setHeader-aac6
+                name: Content-Type
+                expression:
+                  constant:
+                    id: constant-7eec
+                    expression: >
+                      application/soap+xml;charset=UTF-8;action="http://tempuri.org/SMSToMany"
         - to:
             id: to-81e3
             uri: https
