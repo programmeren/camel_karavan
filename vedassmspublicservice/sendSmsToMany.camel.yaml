@@ -1,0 +1,58 @@
+- rest:
+    id: rest-3d8a
+    path: vedassmsservice
+    openApi:
+      id: openApi-ce1e
+    post:
+      - id: post-6613
+        path: /sendSmsToMany
+        to: direct:startSmsToMany
+- route:
+    id: route-c5c1
+    nodePrefixId: route-77f
+    from:
+      id: from-db15
+      uri: direct
+      parameters:
+        name: startSmsToMany
+      steps:
+        - setProperty:
+            id: setProperty-bbfc
+            name: " varOriginator"
+            expression:
+              jq:
+                id: jq-324e
+                expression: " .originator"
+        - setBody:
+            id: setBody-0485
+            expression:
+              constant:
+                id: constant-98e6
+                expression: |-
+                  <SMSToMany xmlns="http://tempuri.org/">
+                    <username>vedasebs</username>
+                    <company_code>mb1870</company_code>
+                    <password>7y1Z53k56a</password>
+                    <originator>VEDAS</originator>
+                    <sendDate />
+                    <message>Genel Aydinlatmalar Yanmiyor konulu basvurunuz alinmistir. Takip numaraniz: 2519125882-9d. Degerli Tuketicimiz ekiplerimizin gerektiginde size ulasabilmesi icin lutfen 0850 211 0 186 numarasindan gelen aramalari cevaplamanizi rica ederiz.</message>
+                    <numbers>05327907111</numbers>
+                    <messageType>N</messageType>
+                    <recipientType>B</recipientType>
+                  </SMSToMany>
+        - removeHeaders:
+            id: removeHeaders-b013
+            pattern: "*"
+        - setHeader:
+            id: setHeader-0037
+            name: CamelHttpMethod
+            expression:
+              constant:
+                id: constant-222d
+                expression: SmsToMany
+        - to:
+            id: to-81e3
+            uri: https
+            parameters:
+              httpUri: http://secure.mobilus.net/soapv3/API.asmx
+              httpMethod: POST
