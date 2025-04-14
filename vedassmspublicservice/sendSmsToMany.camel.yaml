@@ -27,17 +27,17 @@
               constant:
                 id: constant-98e6
                 expression: |-
-                  <SMSToMany xmlns="http://tempuri.org/">
-                    <username>vedasebs</username>
-                    <company_code>mb1870</company_code>
-                    <password>7y1Z53k56a</password>
-                    <originator>VEDAS</originator>
-                    <sendDate />
-                    <message>test.</message>
-                    <numbers>05327907111</numbers>
-                    <messageType>N</messageType>
-                    <recipientType>B</recipientType>
-                  </SMSToMany>
+                  &lt;SMSToMany xmlns=&quot;http://tempuri.org/&quot;&gt;
+                    &lt;username&gt;vedasebs&lt;/username&gt;
+                    &lt;company_code&gt;mb1870&lt;/company_code&gt;
+                    &lt;password&gt;7y1Z53k56a&lt;/password&gt;
+                    &lt;originator&gt;VEDAS&lt;/originator&gt;
+                    &lt;sendDate /&gt;
+                    &lt;message&gt;test.&lt;/message&gt;
+                    &lt;numbers&gt;05327907111&lt;/numbers&gt;
+                    &lt;messageType&gt;N&lt;/messageType&gt;
+                    &lt;recipientType&gt;B&lt;/recipientType&gt;
+                  &lt;/SMSToMany&gt;
         - removeHeaders:
             id: removeHeaders-b013
             pattern: "*"
