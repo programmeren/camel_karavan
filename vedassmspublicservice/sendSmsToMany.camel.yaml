@@ -1,8 +1,6 @@
 - rest:
     id: rest-3d8a
     path: /vedassmsservice
-    openApi:
-      id: openApi-ce1e
     post:
       - id: post-6613
         path: /sendSmsToMany
