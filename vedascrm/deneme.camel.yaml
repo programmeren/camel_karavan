@@ -21,6 +21,13 @@
               id: json-e9b9
               library: Jackson
         - to:
+            id: to-904f
+            uri: elasticsearch
+            parameters:
+              hostAddresses: 10.10.161.95
+              indexName: camel
+              clusterName: 10.66.161.95
+        - to:
             id: to-646b
             uri: kamelet:log-action
             parameters:
