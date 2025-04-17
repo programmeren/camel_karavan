@@ -1,0 +1,8 @@
+services:
+  testinsourceservice:
+    image: testinsourceservice
+    restart: always
+    ports:
+      - "8087:8080"
+    networks:
+      - karavan
