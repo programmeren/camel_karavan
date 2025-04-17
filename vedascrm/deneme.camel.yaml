@@ -20,13 +20,21 @@
             json:
               id: json-e9b9
               library: Jackson
+        - setProperty:
+            id: setProperty-14fc
+            name: queryId
+            expression:
+              jq:
+                id: jq-99e9
+                expression: .id
         - to:
-            id: to-904f
+            id: to-8fbd
             uri: elasticsearch
             parameters:
-              hostAddresses: 10.10.161.95
+              hostAddresses: 10.66.161.95:9200
               indexName: camel
-              clusterName: 10.66.161.95
+              operation: Index
+              clusterName: vedas
         - to:
             id: to-646b
             uri: kamelet:log-action
@@ -132,11 +140,32 @@
                   name: CamelHttpPath
                   expression:
                     simple:
-                      id: simple-8b88
-                      expression: ${body.[id]}
+                      id: simple-cf81
+                      expression: ${exchangeProperty.queryId}
               - to:
                   id: to-0c90
                   uri: https
                   parameters:
                     httpUri: https://dummyjson.com/products/
                     httpMethod: GET
+              - setProperty:
+                  id: setProperty-6d10
+                  name: resultBody
+                  expression:
+                    simple:
+                      id: simple-f13f
+                      expression: ${body}
+              - to:
+                  id: to-4735
+                  uri: elasticsearch
+                  parameters:
+                    clusterName: vedas
+                    hostAddresses: 10.66.161.95:9200
+                    indexName: camel
+                    operation: Index
+              - setBody:
+                  id: setBody-7e5a
+                  expression:
+                    simple:
+                      id: simple-dec4
+                      expression: ${exchangeProperty.resultBody}
