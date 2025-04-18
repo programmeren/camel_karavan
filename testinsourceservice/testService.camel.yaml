@@ -1,34 +1,18 @@
-- rest:
-    id: rest-3e87
-    path: /testInSource
-    post:
-      - id: post-113b
-        path: /testService
-        to: direct:startTest
 - route:
-    id: route-db26
-    nodePrefixId: route-e77
+    id: route-0681
+    nodePrefixId: route-8ec
     from:
-      id: from-1d47
-      uri: direct
+      id: from-8480
+      uri: smb
       parameters:
-        name: startTest
+        hostname: 10.66.161.28
+        shareName: test
+        username: "{{smb.username}}"
+        password: "{{smb.password}}"
+        readLockCheckInterval: "10000"
+        delete: false
+        searchPattern: "*.txt"
       steps:
-        - setBody:
-            id: setBody-f760
-            expression:
-              constant:
-                id: constant-daff
-                expression: "{\"id\":1}"
-        - removeHeaders:
-            id: removeHeaders-c5a4
-            pattern: "*"
-        - to:
-            id: to-f78f
-            uri: http
-            parameters:
-              httpUri: http://10.66.161.37/crm/test
-              httpMethod: POST
         - log:
-            id: log-f50a
-            message: ${body}
+            id: log-4717
+            message: "File name: ${file:name}, Content: ${body}"
