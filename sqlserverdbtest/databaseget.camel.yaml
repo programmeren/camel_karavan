@@ -1,0 +1,32 @@
+- route:
+    id: route-8851
+    nodePrefixId: route-32c
+    from:
+      id: from-f8ec
+      uri: timer
+      parameters:
+        timerName: sqlperyidikgetstart
+        delay: "1000"
+        period: "10000"
+      steps:
+        - to:
+            id: to-0072
+            uri: sql
+            parameters:
+              query: SELECt [Id],[RangeSecond] FROM [BTSVedas].[dbo].[OutageReason]
+              dataSource: "#bean:asfasdfdsf"
+        - to:
+            id: to-f0ac
+            uri: kamelet:log-action
+            parameters:
+              level: INFO
+              showBody: true
+- beans:
+    - name: asfasdfdsf
+      type: com.zaxxer.hikari.HikariDataSource
+      properties:
+        jdbcUrl: >-
+          jdbc:sqlserver://10.66.161.34:1433;databaseName=BTSVedas;encrypt=true;trustServerCertificate=true;
+        username: "{{dbUsername}}"
+        password: "{{dbPassword}}"
+        driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
