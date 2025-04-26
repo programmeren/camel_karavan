@@ -10,7 +10,7 @@
         username: "{{smb.username}}"
         password: "{{smb.password}}"
         readLockCheckInterval: "10000"
-        delete: false
+        delete: true
         searchPattern: "*.txt"
       steps:
         - log:
