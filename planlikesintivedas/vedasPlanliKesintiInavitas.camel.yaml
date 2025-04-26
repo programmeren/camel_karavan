@@ -1,0 +1,113 @@
+- rest:
+    id: rest-1fb6
+    path: /vedas
+    post:
+      - id: post-4789
+        path: /PlanliKesinti
+        to: direct:InavitasPlanliKesintiView
+- beans:
+    - name: myPostgresDataSource
+      type: com.zaxxer.hikari.HikariDataSource
+      properties:
+        jdbcUrl: jdbc:postgresql://10.66.160.85:5432/inavitas_export
+        username: "{{dbUserName}}"
+        password: "{{dbPassword}}"
+        driverClassName: org.postgresql.Driver
+- route:
+    id: route-266f
+    nodePrefixId: route-273
+    from:
+      id: from-47ed
+      uri: direct
+      parameters:
+        name: InavitasPlanliKesintiView
+      steps:
+        - setProperty:
+            id: setProperty-4370
+            description: getILID
+            name: varilid
+            expression:
+              jq:
+                id: jq-79ff
+                expression: .id
+        - setProperty:
+            id: setProperty-84fb
+            description: getILCEID
+            name: varilceid
+            expression:
+              jq:
+                id: jq-5ea8
+                expression: .ilceid
+        - setProperty:
+            id: setProperty-4135
+            description: SqlBase
+            name: varSqlBase
+            expression:
+              simple:
+                id: simple-0dd0
+                expression: >-
+                  SELECT * FROM "PLANLI_KESINTI_VEDAS" pk where 
+                  "IL_ID"=${exchangeProperty.varilid} 
+        - choice:
+            id: choice-5581
+            when:
+              - id: when-41fe
+                expression:
+                  simple:
+                    id: simple-67e6
+                    expression: ${exchangeProperty.varilceid} != null
+                steps:
+                  - setProperty:
+                      id: setProperty-950f
+                      description: varSQL
+                      name: varSQL
+                      expression:
+                        simple:
+                          id: simple-ef46
+                          expression: >-
+                            ${exchangeProperty.varSqlBase} AND
+                            "ILCE_ID"=${exchangeProperty.varilceid}
+                  - log:
+                      id: log-c0e0
+                      message: ${exchangeProperty.varSQL}
+                      loggingLevel: INFO
+                      logName: sqlLog
+            otherwise:
+              id: otherwise-46f0
+              steps:
+                - setProperty:
+                    id: setProperty-ddcc
+                    description: varSQL
+                    name: varSQL
+                    expression:
+                      simple:
+                        id: simple-c084
+                        expression: ${exchangeProperty.varSqlBase}
+                - log:
+                    id: log-dc74
+                    message: ${exchangeProperty.varSQL}
+        - setHeader:
+            id: setHeader-f1bb
+            name: CamelSqlQuery
+            expression:
+              simple:
+                id: simple-220f
+                expression: ${exchangeProperty.varSQL}
+        - to:
+            id: to-7e60
+            uri: sql
+            parameters:
+              query: >-
+                SELECT * FROM "PLANLI_KESINTI_VEDAS" pk where
+                IL_ID=65?dataSource=#myPostgresDataSource
+        - marshal:
+            id: marshal-4ffa
+            json:
+              id: json-40dc
+              library: Jackson
+        - to:
+            id: to-2383
+            uri: kamelet:log-action
+            parameters:
+              level: INFO
+              showBody: true
